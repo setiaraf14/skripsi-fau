@@ -43,8 +43,13 @@ to get the desired effect
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
-            class="fas fa-lock"></i>Logout</a>
+        <a class="nav-link d-flex justify-content-start">
+          <form action="{{ route('logout') }}" method="POST" class="">
+              @csrf
+              <button type="submit" class="btn btn-danger mt-1"><i class="fas fa-sign-out-alt"></i></button>
+          </form>
+          <p class="m-2">Logout</p>
+        </a>
       </li>
     </ul>
   </nav>
