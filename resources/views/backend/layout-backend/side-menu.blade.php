@@ -24,12 +24,47 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <a href="{{ url('/backend') }}" class="nav-link @yield('dashboard') ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                User & Role
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('backend/user-role/role') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Role</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('backend/user-rt') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>RT</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('backend/user-rw') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>RW</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('backend/user/create') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
