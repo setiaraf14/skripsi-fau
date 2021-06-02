@@ -8,6 +8,18 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    @if(session('message'))
+                        <div class="alert alert-{{ session('style') }}" id="alert-notification">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h5>{{ session('message') }}</h5>
+                                </div>
+                                <div class="col-md-1 text-right">
+                                    <span id="close-notification">&times;</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

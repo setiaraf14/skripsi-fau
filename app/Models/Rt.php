@@ -13,6 +13,6 @@ class Rt extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class, 'rt_id', 'id');
+        return $this->hasMany('App\User', 'rt_id', 'id');
     }
 }

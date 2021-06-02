@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Rt;
 use App\Models\Rw;
-use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -38,18 +37,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Rt()
-    {
-        return $this->belongsTo(Rt::class, 'rt_id', 'id');
+    public function rt(){
+        return $this->belongsTo('App\Models\Rt','rt_id','id');
     }
 
-    public function Rw()
+    public function rw()
     {
-        return $this->belongsTo(Rt::class, 'rw_id', 'id');
-    }
-
-    public function Role()
-    {
-        return $this->belongsTo(Role::class, 'role_user_id', 'id');
+        return $this->belongsTo(Rw::class, 'rw_id', 'id');
     }
 }

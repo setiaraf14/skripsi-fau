@@ -8,7 +8,7 @@
 @section('title', '| User')
 
 @section('judul')
-    <h1>Tabel Data RT</h1>
+    <h1>Tabel Data User</h1>
 @endsection
 
 @section('ckeditor')
@@ -39,7 +39,7 @@
                             </div>
                         @endif
                         
-                        <form method="POST" action="{{ url('backend/user/store') }}">
+                        <form method="POST" action="{{ url('backend/user/update/'.$user->id) }}">
                             @csrf
 
                             <div class="form-group row">
@@ -48,7 +48,7 @@
     
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                        name="name" value="{{ old('name') }}" required autocomplete="name"
+                                        name="name" value="{{ old('nama_kegiatan') ?? $user->name}}" required autocomplete="name"
                                         autofocus>
     
                                     @error('name')
@@ -66,7 +66,9 @@
                                         class="form-control @error('rt_id') is-invalid @enderror">
                                         <option value="" selected disabled>-Select--</option>
                                         @forelse(\App\Models\Rt::all() as $rt)
-                                            <option value="{{ $rt->id }}">{{ $rt->rt_name }}</option>
+                                            <option value="{{ $rt->id }}" {{ old('rt_id') ?? $user->rt->rt_name == $rt->rt_name ? 'selected' : '' }}>
+                                                {{ $rt->rt_name }}
+                                            </option>
                                         @empty
                                             <option value="" selected disabled>--No Record--</option>
                                         @endforelse
@@ -86,7 +88,7 @@
                                         class="form-control @error('rw_id') is-invalid @enderror">
                                         <option value="" selected disabled>-Select--</option>
                                         @forelse(\App\Models\Rw::all() as $rw)
-                                            <option value="{{ $rw->id }}">{{ $rw->rw_name }}</option>
+                                            <option value="{{ $rw->id }}" {{ old('rw_id') ?? $user->rw->rw_name == $rw->rw_name ? 'selected' : '' }}>{{ $rw->rw_name }}</option>
                                         @empty
                                             <option value="" selected disabled>--No Record--</option>
                                         @endforelse
@@ -105,10 +107,10 @@
                                     <select name="role_user" id="role_user"
                                         class="form-control @error('role_user') is-invalid @enderror">
                                         <option value="" selected disabled>-Select--</option>
-                                        <option value="Staff-Kelurahan">Staff Kelurahan</option>
-                                        <option value="Ketua-RT">Ketua RT</option>
-                                        <option value="Ketua-RW">Ketua RW</option>
-                                        <option value="warga">Warga</option>
+                                        <option value="Staff-Kelurahan" {{ (old('role_user') ?? $user->role_user) == 'Staff-Kelurahan' ? 'selected' : ' ' }}>Staff Kelurahan</option>
+                                        <option value="Ketua-RT" {{ (old('role_user') ?? $user->role_user) == 'Ketua-RT' ? 'selected' : ' ' }}>Ketua RT</option>
+                                        <option value="Ketua-RW" {{ (old('role_user') ?? $user->role_user) == 'Ketua-RW' ? 'selected' : ' ' }}>Ketua RW</option>
+                                        <option value="warga" {{ (old('role_user') ?? $user->role_user) == 'warga' ? 'selected' : ' ' }}>Warga</option>
                                     </select>
                                     @error('role_user')
                                         <span class="invalid-feedback" role="alert">
@@ -124,7 +126,7 @@
     
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" value="{{ old('email') }}" required
+                                        name="email" value="{{ old('email')??$user->email }}" required
                                         autocomplete="email">
     
                                     @error('email')
@@ -137,7 +139,7 @@
 
                             <div class="form-group row">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-right">Password Baru</label>
     
                                 <div class="col-md-6 d-flex justify-content-center">
                                     <input id="password" type="password"
