@@ -170,7 +170,7 @@ class UserRoleController extends Controller
     public function storeUser(Request $request, $id = null)
     {
         if($request->role_user == 'Ketua-RT') {
-            $resultCheckRt = $this->checkStatusRt($request->rt_id, $request->role_user);
+            $resultCheckRt = $this->checkStatusRt($request->rt_id, $request->rw_id, $request->role_user);
             if($resultCheckRt) {
                 return redirect('backend/user')->with([
                     'message'   => 'Ketua RT setempat sudah ada',
@@ -240,8 +240,8 @@ class UserRoleController extends Controller
         ]);
     }
 
-    public function checkStatusRt($noRt, $roleRt){
-        $data = User::with(['rt']);
+    public function checkStatusRt($noRt, $noRw, $roleRt){
+        $data = User::with(['rt', 'rw']);
 
         if(!empty($roleRt)){
             $data = $data->where('role_user', $roleRt);
@@ -250,6 +250,12 @@ class UserRoleController extends Controller
         if(!empty($noRt)){
             $data = $data->whereHas('rt',function($q) use($noRt){
                 $q->where('id', $noRt);
+            });
+        }
+
+        if(!empty($noRw)){
+            $data = $data->whereHas('rw',function($q) use($noRw){
+                $q->where('id', $noRw);
             });
         }
 
