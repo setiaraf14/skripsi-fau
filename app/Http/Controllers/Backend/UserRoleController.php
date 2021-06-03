@@ -9,6 +9,7 @@ use App\Models\Rw;
 use App\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserRoleController extends Controller
 {
@@ -110,25 +111,53 @@ class UserRoleController extends Controller
 
     public function filterUser($filter){
         $data = User::with(['rt', 'rw']);
-        if(!empty($filter['search_name'])){
-            $data = $data->where('name','LIKE','%'.$filter['search_name'].'%');
-        }
-        if(!empty($filter['search_rt'])){
-            $data = $data->whereHas('rt',function($q) use($filter){
-                $q->where('rt_name', $filter['search_rt']);
+        $role = Auth::user()->role_user;
+
+        if($role == "Staff-Kelurahan") {
+            if(!empty($filter['search_name'])){
+                $data = $data->where('name','LIKE','%'.$filter['search_name'].'%');
+            }
+            if(!empty($filter['search_rt'])){
+                $data = $data->whereHas('rt',function($q) use($filter){
+                    $q->where('rt_name', $filter['search_rt']);
+                });
+            }
+    
+            if(!empty($filter['search_rw'])){
+                $data = $data->whereHas('rw',function($q) use($filter){
+                    $q->where('rw_name', $filter['search_rw']);
+                });
+            }
+    
+            if(!empty($filter['search_role'])){
+                $data = $data->where('role_user','LIKE','%'.$filter['search_role'].'%');
+            }    
+        } else if($role == "Ketua-RW") {
+            $rw = Auth::user()->rw_id;
+            if(!empty($filter['search_name'])){
+                $data = $data->where('name','LIKE','%'.$filter['search_name'].'%');
+            }
+            if(!empty($filter['search_rt'])){
+                $data = $data->whereHas('rt',function($q) use($filter){
+                    $q->where('rt_name', $filter['search_rt']);
+                });
+            }
+            $data = $data->whereHas('rw',function($q) use($rw){
+                $q->where('id', $rw);
+            });
+        } else {
+            $rw = Auth::user()->rw_id;
+            $rt = Auth::user()->rt_id;
+            if(!empty($filter['search_name'])){
+                $data = $data->where('name','LIKE','%'.$filter['search_name'].'%');
+            }
+            $data = $data->whereHas('rt',function($q) use($rt){
+                $q->where('id', $rt);
+            });
+            $data = $data->whereHas('rw',function($q) use($rw){
+                $q->where('id', $rw);
             });
         }
-
-        if(!empty($filter['search_rw'])){
-            $data = $data->whereHas('rw',function($q) use($filter){
-                $q->where('rw_name', $filter['search_rw']);
-            });
-        }
-
-        if(!empty($filter['search_role'])){
-            $data = $data->where('role_user','LIKE','%'.$filter['search_role'].'%');
-        }
-
         $data->orderBy('id','desc');
         return $data->paginate(25);
     }

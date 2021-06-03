@@ -28,60 +28,108 @@
                         <div class="col-md-10 mb-3">
                             <form action="{{ url('backend/user') }}" method="GET">
                                 <div class="row text-center">
-                                    <div class="col-md-3">
-                                        <input type="text" name="search_name" class="form-control"
-                                        value="{{ isset($filters['search_name']) ? $filters['search_name'] : "" }}" placeholder="Search By Name">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="input-group">
-                                            <select name="search_role" class="form-control">
-                                                <option value="" disabled selected>-- Pilih Status --</option>
-                                                <option value="Staff-Kelurahan" {{ isset($filters['search_role']) ? ($filters['search_role'] == 'Staff-Kelurahan' ? 'selected' : '') : '' }}>
-                                                    Staff-Kelurahan
-                                                </option>
-                                                <option value="Ketua-RT" {{ isset($filters['search_role']) ? ($filters['search_role'] == 'Ketua-RT' ? 'selected' : '') : '' }}>
-                                                    Ketua-RT
-                                                </option>
-                                                <option value="Ketua-RW" {{ isset($filters['search_role']) ? ($filters['search_role'] == 'Ketua-RW' ? 'selected' : '') : '' }}>
-                                                    Ketua-RW
-                                                </option>
-                                                <option value="Warga" {{ isset($filters['search_role']) ? ($filters['search_role'] == 'Warga' ? 'selected' : '') : '' }}>
-                                                    Warga
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-3">
-                                        <div class="input-group">
-                                            <select name="search_rt" id="" class="form-control">
-                                                <option value="" disabled selected>-- Pilih RT --</option>
-                                                @foreach(\App\Models\Rt::all() as $rt)
-                                                <option value="{{ $rt->rt_name }}" {{ isset($filters['search_rt']) == $rt->rt_name ? 'selected' : '' }}>
-                                                    {{ $rt->rt_name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
 
-                                    <div class="input-group col-md-3 text-right">
-                                        <div class="input-group">
-                                            <select name="search_rw" id="" class="form-control">
-                                                <option value="" disabled selected>-- Pilih RW --</option>
-                                                @foreach(\App\Models\Rw::all() as $rw)
-                                                <option value="{{ $rw->rw_name }}" {{ isset($filters['search_rw']) == $rw->rw_name ? 'selected' : '' }}>
-                                                    {{ $rw->rw_name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-info btn-xs" type="submit"><i class="fa fa-search"
-                                                        aria-hidden="true"></i>
-                                                    Search</button>
+                                    @if (Auth::user()->role_user == "Staff-Kelurahan")
+                                        <div class="col-md-3">
+                                            <input type="text" name="search_name" class="form-control"
+                                            value="{{ isset($filters['search_name']) ? $filters['search_name'] : "" }}" placeholder="Search By Name">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <select name="search_role" class="form-control">
+                                                    <option value="" disabled selected>-- Pilih Status --</option>
+                                                    <option value="Staff-Kelurahan" {{ isset($filters['search_role']) ? ($filters['search_role'] == 'Staff-Kelurahan' ? 'selected' : '') : '' }}>
+                                                        Staff-Kelurahan
+                                                    </option>
+                                                    <option value="Ketua-RT" {{ isset($filters['search_role']) ? ($filters['search_role'] == 'Ketua-RT' ? 'selected' : '') : '' }}>
+                                                        Ketua-RT
+                                                    </option>
+                                                    <option value="Ketua-RW" {{ isset($filters['search_role']) ? ($filters['search_role'] == 'Ketua-RW' ? 'selected' : '') : '' }}>
+                                                        Ketua-RW
+                                                    </option>
+                                                    <option value="Warga" {{ isset($filters['search_role']) ? ($filters['search_role'] == 'Warga' ? 'selected' : '') : '' }}>
+                                                        Warga
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
-                                    </div>
+                                        
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <select name="search_rt" id="" class="form-control">
+                                                    <option value="" disabled selected>-- Pilih RT --</option>
+                                                    @foreach(\App\Models\Rt::all() as $rt)
+                                                    <option value="{{ $rt->rt_name }}" {{ isset($filters['search_rt']) == $rt->rt_name ? 'selected' : '' }}>
+                                                        {{ $rt->rt_name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="input-group col-md-3 text-right">
+                                            <div class="input-group">
+                                                <select name="search_rw" id="" class="form-control">
+                                                    <option value="" disabled selected>-- Pilih RW --</option>
+                                                    @foreach(\App\Models\Rw::all() as $rw)
+                                                    <option value="{{ $rw->rw_name }}" {{ isset($filters['search_rw']) == $rw->rw_name ? 'selected' : '' }}>
+                                                        {{ $rw->rw_name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-info btn-xs" type="submit"><i class="fa fa-search"
+                                                            aria-hidden="true"></i>
+                                                        Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @elseif(Auth::user()->role_user == "Ketua-RW")
+
+                                        <div class="col-md-3">
+                                            <input type="text" name="search_name" class="form-control"
+                                            value="{{ isset($filters['search_name']) ? $filters['search_name'] : "" }}" placeholder="Search By Name">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <select name="search_rt" id="" class="form-control">
+                                                    <option value="" disabled selected>-- Pilih RT --</option>
+                                                    @foreach(\App\Models\Rt::all() as $rt)
+                                                    <option value="{{ $rt->rt_name }}" {{ isset($filters['search_rt']) == $rt->rt_name ? 'selected' : '' }}>
+                                                        {{ $rt->rt_name }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="input-group">
+                                                <button class="btn btn-outline-info btn-xs" type="submit"><i class="fa fa-search"
+                                                    aria-hidden="true"></i>
+                                                Search</button>
+                                            </div>
+                                        </div>
+
+                                    @else
+                                        <div class="col-md-3">
+                                            <input type="text" name="search_name" class="form-control"
+                                            value="{{ isset($filters['search_name']) ? $filters['search_name'] : "" }}" placeholder="Search By Name">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="input-group">
+                                                <button class="btn btn-outline-info btn-xs" type="submit"><i class="fa fa-search"
+                                                    aria-hidden="true"></i>
+                                                Search</button>
+                                            </div>
+                                        </div>
+                                    @endif
+
+
+                                    
+
                                 </div>
                             </form>
                         </div>
