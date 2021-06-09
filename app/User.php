@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Rw::class, 'rw_id', 'id');
     }
+
+    public function berita()
+    {
+        return $this->hasMany('App\Models\Berita', 'user_id', 'id');
+    }
 }

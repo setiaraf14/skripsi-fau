@@ -163,8 +163,19 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $users->name }}</td>
-                                            <td>{{ $users->rt->rt_name }}</td>
-                                            <td>{{ $users->rw->rw_name  }}</td>
+
+                                            @if ( is_null($users->rt_id))
+                                                <td>{{ 'Admin' }}</td> 
+                                            @else
+                                                <td>{{ $users->rt->rt_name }}</td>
+                                            @endif
+
+                                            @if (is_null($users->rw_id))
+                                                <td>{{ 'Admin' }}</td> 
+                                            @else
+                                                <td>{{ $users->rw->rw_name }}</td>
+                                            @endif
+
                                             <td>{{ $users->role_user }}</td>
                                             <td>{{ $users->email }}</td>
                                             <td>
@@ -179,6 +190,7 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            {{ $user->links() }}
                         </div>
                         
                     </div>
