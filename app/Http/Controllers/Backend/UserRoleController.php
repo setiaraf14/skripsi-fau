@@ -159,7 +159,7 @@ class UserRoleController extends Controller
             });
         }
         $data->orderBy('id','desc');
-        return $data->paginate(25);
+        return $data->paginate(10);
     }
 
     public function registerUser()
