@@ -31,6 +31,22 @@
               </p>
             </a>
           </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="{{ url('/backend/permohonan-ktp') }}" class="nav-link @yield('permohonan-ktp') ">
+              <i class="nav-icon fas fa-id-card"></i>
+              <p>
+                Permohonan KTP
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="{{ url('/backend/permohonan-kk') }}" class="nav-link @yield('permohonan-kk') ">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                Permohonan KK
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link"  @yield('user-role')>
               <i class="nav-icon fas fa-chart-pie"></i>

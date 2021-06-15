@@ -20,6 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::namespace('Backend')->group(function(){
+    Route::post('/permohonan-ktp', 'PermohonanKtpKkController@storeKtp');
+    Route::post('/permohonan-kk', 'PermohonanKtpKkController@storeKk');
+});
 
 Route::group(['prefix' => 'backend', 'namespace'=>'Backend'], function () {
     Route::get('/', 'DashboardBackendController@index');
@@ -48,4 +52,15 @@ Route::group(['prefix' => 'backend', 'namespace'=>'Backend'], function () {
     });
     
     Route::post('/register-front', 'UserRoleController@registerFrontUser');
+
+    Route::get('/permohonan-ktp', 'PermohonanKtpKkController@getPermohonanKtp');
+    Route::get('/permohonan-ktp/edit/{id?}', 'PermohonanKtpKkController@formEditKtp');
+    Route::post('/permohonan-ktp/edit/{id?}', 'PermohonanKtpKkController@storeKtp');
+    Route::get('/permohonan-ktp/delete/{id?}', 'PermohonanKtpKkController@deletePermohonanKtp');
+
+    Route::get('permohonan-kk', 'PermohonanKtpKkController@getPermohonanKk');
+    Route::get('permohonan-kk/edit/{id?}', 'PermohonanKtpKkController@formEditKk');
+    Route::post('permohonan-kk/edit/{id?}', 'PermohonanKtpKkController@storeKk');
+    Route::get('permohonan-kk/delete/{id?}', 'PermohonanKtpKkController@deletePermohonanKk');
+
 });

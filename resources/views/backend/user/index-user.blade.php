@@ -163,8 +163,8 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $users->name }}</td>
-                                            <td>{{ $users->rt->rt_name }}</td>
-                                            <td>{{ $users->rw->rw_name  }}</td>
+                                            <td>{{ isset($users->rt->rt_name) }}</td>
+                                            <td>{{ isset($users->rw->rw_name)  }}</td>
                                             <td>{{ $users->role_user }}</td>
                                             <td>{{ $users->email }}</td>
                                             <td>
