@@ -74,7 +74,27 @@
                                             <td><img src="{{ Storage::url($kk->foto_istri) }}" style="width:80px; height:90px" alt=""></td>
                                             <td>{{ $kk->alamat }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-success">Rt</a>
+                                                @if (Auth::user())
+                                                    @if (Auth::user()->role_user == 'Staff-Kelurahan')
+                                                        @if ($kk->approve_kelurahan <> true)
+                                                            <a href="{{ url('backend/kk/approve-kelurahan/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                        @else
+                                                            <a href="{{ url('backend/kk/approve-kelurahan/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                        @endif
+                                                    @elseif(Auth::user()->role_user == 'Ketua-RW')
+                                                        @if ($kk->approve_rw <> true)
+                                                            <a href="{{ url('backend/kk/approve-rw/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                        @else
+                                                            <a href="{{ url('backend/kk/approve-rw/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                        @endif
+                                                    @else
+                                                        @if ($kk->approve_rt <> true)
+                                                            <a href="{{ url('backend/kk/approve-rt/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                        @else
+                                                            <a href="{{ url('backend/kk/approve-rt/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                        @endif
+                                                    @endif
+                                                @endif
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-start">

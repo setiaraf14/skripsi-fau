@@ -52,6 +52,75 @@ class PermohonanKtpKkController extends Controller
         ]);
     }
 
+    public function ktpApproveKelurahan($id)
+    {
+        if ($id) {
+            $user = PermohonanKtp::find($id);
+            $approve = $user->approve_kelurahan;
+            if($approve == false) {
+                $user->approve_kelurahan = true;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Approve Permohonan KTP A/N ' . $user->nama . ' Sukses',
+                    'style'     => 'info'    
+                ]);
+            } else {
+                $user->approve_kelurahan = false;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Un-approve Permohonan KTP A/N' . $user->nama . 'Sukses',
+                    'style'     => 'info'    
+                ]);
+            }
+        }
+    }
+
+    public function ktpApproveRw($id)
+    {
+        if ($id) {
+            $user = PermohonanKtp::find($id);
+            $approve = $user->approve_rw;
+            if($approve == false) {
+                $user->approve_rw = true;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Approve Permohonan KTP A/N ' . $user->nama . ' Sukses',
+                    'style'     => 'info'    
+                ]);
+            } else {
+                $user->approve_rw = false;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Un-approve Permohonan KTP A/N' . $user->nama . 'Sukses',
+                    'style'     => 'info'    
+                ]);
+            }
+        }
+    }
+
+    public function ktpApproveRt($id)
+    {
+        if ($id) {
+            $user = PermohonanKtp::find($id);
+            $approve = $user->approve_rt;
+            if($approve == false) {
+                $user->approve_rt = true;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Approve Permohonan KTP A/N ' . $user->nama . ' Sukses',
+                    'style'     => 'info'    
+                ]);
+            } else {
+                $user->approve_rt = false;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Un-approve Permohonan KTP A/N' . $user->nama . 'Sukses',
+                    'style'     => 'info'    
+                ]);
+            }
+        }
+    }
+
     // ------------------------- Function Permohonan KK -------------------------------
     public function getPermohonanKk()
     {
@@ -104,6 +173,75 @@ class PermohonanKtpKkController extends Controller
             'message'   => 'Delete Permohonan KK Success',
             'style'     => 'info'    
         ]);
+    }
+
+    public function kkApproveKelurahan($id)
+    {
+        if ($id) {
+            $user = PermohonanKk::find($id);
+            $approve = $user->approve_kelurahan;
+            if($approve == false) {
+                $user->approve_kelurahan = true;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Approve Permohonan KK A/N ' . $user->nama . ' Sukses',
+                    'style'     => 'info'    
+                ]);
+            } else {
+                $user->approve_kelurahan = false;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Un-approve Permohonan KK A/N' . $user->nama . 'Sukses',
+                    'style'     => 'info'    
+                ]);
+            }
+        }
+    }
+
+    public function kkApproveRw($id)
+    {
+        if ($id) {
+            $user = PermohonanKk::find($id);
+            $approve = $user->approve_rw;
+            if($approve == false) {
+                $user->approve_rw = true;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Approve Permohonan KK A/N ' . $user->nama . ' Sukses',
+                    'style'     => 'info'    
+                ]);
+            } else {
+                $user->approve_rw = false;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Un-approve Permohonan KK A/N' . $user->nama . 'Sukses',
+                    'style'     => 'info'    
+                ]);
+            }
+        }
+    }
+
+    public function kkApproveRt($id)
+    {
+        if ($id) {
+            $user = PermohonanKk::find($id);
+            $approve = $user->approve_rt;
+            if($approve == false) {
+                $user->approve_rt = true;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Approve Permohonan KTP A/N ' . $user->nama . ' Sukses',
+                    'style'     => 'info'    
+                ]);
+            } else {
+                $user->approve_rt = false;
+                $user->save();
+                return redirect()->back()->with([
+                    'message'   => 'Un-approve Permohonan KTP A/N' . $user->nama . 'Sukses',
+                    'style'     => 'info'    
+                ]);
+            }
+        }
     }
 
 }

@@ -25,7 +25,7 @@ Route::namespace('Backend')->group(function(){
     Route::post('/permohonan-kk', 'PermohonanKtpKkController@storeKk');
 });
 
-Route::group(['prefix' => 'backend', 'namespace'=>'Backend'], function () {
+Route::group(['prefix' => 'backend', 'namespace'=>'Backend', 'middleware' => 'auth'], function () {
     Route::get('/', 'DashboardBackendController@index');
     
     Route::group(['prefix' => 'user-rt'], function () {
@@ -62,5 +62,13 @@ Route::group(['prefix' => 'backend', 'namespace'=>'Backend'], function () {
     Route::get('permohonan-kk/edit/{id?}', 'PermohonanKtpKkController@formEditKk');
     Route::post('permohonan-kk/edit/{id?}', 'PermohonanKtpKkController@storeKk');
     Route::get('permohonan-kk/delete/{id?}', 'PermohonanKtpKkController@deletePermohonanKk');
+
+    Route::get('ktp/approve-kelurahan/{id?}', 'PermohonanKtpKkController@ktpApproveKelurahan');
+    Route::get('ktp/approve-rw/{id?}', 'PermohonanKtpKkController@ktpApproveRw');
+    Route::get('ktp/approve-rt/{id?}', 'PermohonanKtpKkController@ktpApproveRt');
+
+    Route::get('kk/approve-kelurahan/{id?}', 'PermohonanKtpKkController@kkApproveKelurahan');
+    Route::get('kk/approve-rw/{id?}', 'PermohonanKtpKkController@kkApproveRw');
+    Route::get('kk/approve-rt/{id?}', 'PermohonanKtpKkController@kkApproveRt');
 
 });
