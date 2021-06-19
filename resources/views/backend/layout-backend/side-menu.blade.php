@@ -47,6 +47,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="{{ url('/backend/berita') }}" class="nav-link @yield('berita') ">
+              <i class="fas fa-newspaper"></i>
+              <p>
+                Berita Kecamatan
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link"  @yield('user-role')>
               <i class="nav-icon fas fa-chart-pie"></i>

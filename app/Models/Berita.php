@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Berita extends Model
 {
@@ -10,6 +11,6 @@ class Berita extends Model
     protected $guarded = [];
 
     public function user(){
-        return $this->belongsTo('App\User','user_id','id');
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }

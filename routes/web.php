@@ -41,15 +41,25 @@ Route::group(['prefix' => 'backend', 'namespace'=>'Backend'], function () {
     }); 
 
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/test-filter', 'UserRoleController@testFilter');
         Route::get('/', 'UserRoleController@indexUser');
         Route::get('/create', 'UserRoleController@registerUser');
         Route::post('/store', 'UserRoleController@storeUser');
         Route::get('/edit/{id}','UserRoleController@editUser');
-        Route::get('delete/{id?}', 'UserRoleController@deleteUser');
         Route::post('update/{id?}', 'UserRoleController@storeUser');
         Route::get('delete/{id?}', 'UserRoleController@deleteUser');
     });
+
+    Route::group(['prefix' => 'berita'], function () {
+        Route::get('/', 'BeritaController@index');
+        Route::get('/create', 'BeritaController@create');
+        Route::post('/store', 'BeritaController@store');
+        Route::get('/show/{id}', 'BeritaController@show');
+        Route::get('/edit/{id}','BeritaController@edit');
+        Route::post('/update/{id?}', 'BeritaController@update');
+        Route::get('/delete/{id?}', 'BeritaController@delete');
+    });
+
+
     
     Route::post('/register-front', 'UserRoleController@registerFrontUser');
 

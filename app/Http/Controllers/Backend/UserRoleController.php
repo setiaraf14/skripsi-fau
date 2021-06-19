@@ -95,12 +95,12 @@ class UserRoleController extends Controller
         ]);
     }
 
-    public function testFilter(Request $request)
-    {
-        $filters = $request->only(['search_name','search_rt','search_rw','search_role']);
-        $user = $this->filterUser($filters);
-        dd($user);
-    }
+    // public function testFilter(Request $request)
+    // {
+    //     $filters = $request->only(['search_name','search_rt','search_rw','search_role']);
+    //     $user = $this->filterUser($filters);
+    //     dd($user);
+    // }
 
     public function indexUser(Request $request)
     {
@@ -195,6 +195,8 @@ class UserRoleController extends Controller
             'rt_id' => 'required',
             'rw_id' => 'required',
             'role_user' => 'required|string|max:255',
+            'telepon' => 'required|numeric|min:10',
+            'alamat' => 'required',
             'email' => 'required|email|max:255',
             'password' => 'required',
         ])->validate();
@@ -206,17 +208,27 @@ class UserRoleController extends Controller
                 $result['message']  = $user;
                 return $result;
             }
+            $user->name = $request->name;
+            $user->rt_id = $request->rt_id;
+            $user->rw_id = $request->rw_id;
+            $user->role_user = $request->role_user;
+            $user->telepon = $request->telepon;
+            $user->alamat = $request->alamat;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save(); 
         }else{
             $user = new User();
-        }
-
-        $user->name = $request->name;
-        $user->rt_id = $request->rt_id;
-        $user->rw_id = $request->rw_id;
-        $user->role_user = $request->role_user;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();        
+            $user->name = $request->name;
+            $user->rt_id = $request->rt_id;
+            $user->rw_id = $request->rw_id;
+            $user->role_user = $request->role_user;
+            $user->telepon = $request->telepon;
+            $user->alamat = $request->alamat;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save(); 
+        }       
 
         return redirect('backend/user')->with([
             'message'   => 'Saving User success',
@@ -284,6 +296,8 @@ class UserRoleController extends Controller
             'name'  => 'required|string|max:255',
             'rt_id' => 'required',
             'rw_id' => 'required',
+            'telepon' => 'required|numeric|min:10',
+            'alamat' => 'required',
             'email' => 'required|email|max:255',
             'password' => 'required',
         ])->validate();
@@ -294,7 +308,9 @@ class UserRoleController extends Controller
         $user->rt_id = $request->rt_id;
         $user->rw_id = $request->rw_id;
         $user->role_user = 'warga';
-        $user->email = $request->email;
+        $user->telepon = $request->telepon;
+        $user->alamat = $request->alamat;
+        $user->email = $user->email;
         $user->password = Hash::make($request->password);
         $user->save();        
 

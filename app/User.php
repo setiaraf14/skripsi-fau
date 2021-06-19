@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Rt;
 use App\Models\Rw;
+use App\Models\Berita;
 
 class User extends Authenticatable
 {
@@ -48,6 +49,6 @@ class User extends Authenticatable
 
     public function berita()
     {
-        return $this->hasMany('App\Models\Berita', 'user_id', 'id');
+        return $this->hasMany(Berita::class, 'user_id', 'id');
     }
 }
