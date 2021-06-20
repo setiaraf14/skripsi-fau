@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\HomepageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/template', function () {
+    return view('frontend.layout-frontend.main');
 });
+
+Route::namespace('Frontend')->group(function(){
+    Route::get('/', 'HomepageController@index');
+    Route::get('/pelayanan', 'HomepageController@pelayanan');
+});
+
 
 Auth::routes();
 

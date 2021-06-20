@@ -41,7 +41,7 @@
                         @endif
 
                         <form action="{{ url('backend/berita') }}" method="GET">
-                                <div class="row text-center">
+                                <div class="row text-center m-3">
 
                                         <div class="col-md-3">
                                             <input type="text" name="search_judul" class="form-control"
@@ -49,18 +49,18 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                            <input type="text" name="search_name" class="form-control"
-                                            value="{{ isset($filters['search_name']) ? $filters['search_name'] : "" }}" placeholder="Search By Name">
+                                            <input type="text" name="search_lokasi" class="form-control"
+                                            value="{{ isset($filters['search_lokasi']) ? $filters['search_lokasi'] : "" }}" placeholder="Search By Lokasi">
                                         </div>
 
                                         
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                <select name="search_rt" id="" class="form-control">
-                                                    <option value="" disabled selected>-- Pilih RT --</option>
-                                                    @foreach(\App\Models\Rt::all() as $rt)
-                                                    <option value="{{ $rt->rt_name }}" {{ isset($filters['search_rt']) == $rt->rt_name ? 'selected' : '' }}>
-                                                        {{ $rt->rt_name }}
+                                                <select name="search_peliput" id="" class="form-control">
+                                                    <option value="" disabled selected>-- Pilih Peliput --</option>
+                                                    @foreach($users as $user)
+                                                    <option value="{{ $user->name }}" {{ isset($filters['search_peliput']) == $user->name ? 'selected' : '' }}>
+                                                        {{ $user->name }}
                                                     </option>
                                                     @endforeach
                                                 </select>
@@ -107,7 +107,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+                        @if(isset($item))
+                            {{ $berita->links() }}
+                        @endif
                     </div>
                 </div>   
             </div>

@@ -10,40 +10,41 @@ use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
-    protected $berita;
 
-    public function __construct() 
+    public function testing(Request $request)
     {
-        $this->berita = new Berita();
+        $filters = $request->only(['search_judul', 'search_lokasi', 'search_peliput']);
+        $berita = $this->getFilters($filters);
+        dd($berita, 'testing');
     }
 
-    public function index(){
+    public function index(Request $request){
+        $filters = $request->only(['search_judul', 'search_lokasi', 'search_peliput']);
+        $berita = $this->getFilters($filters);
+        $users = User::with([])->where('role_user', 'Staff-Kelurahan')->get();
+        return view('backend.berita.index', compact('berita', 'filters', 'users'));
+    }
+
+    public function getFilters($filter){
         $data = Berita::with(['user']);
-        $berita = $data->get();
-        return view('backend.berita.index', compact('berita'));
+
+        if(!empty($filter['search_judul'])){
+            $data = $data->where('judul_berita','LIKE','%'.$filter['search_judul'].'%');
+        }
+
+        if(!empty($filter['search_lokasi'])){
+            $data = $data->where('alamat_berita','LIKE','%'.$filter['search_lokasi'].'%');
+        }
+
+        if(!empty($filter['search_peliput'])){
+            $data = $data->whereHas('user',function($q) use($filter){
+                $q->where('name', $filter['search_peliput']);
+            });
+        } 
+
+        $data->orderBy('id','desc');
+        return $data->paginate(10);
     }
-
-    // public function getFilters(){
-    //     $data = Berita::with(['user']);
-
-    //     if(!empty($filter['search_name'])){
-    //         $data = $data->where('name','LIKE','%'.$filter['search_name'].'%');
-    //     }
-    //     if(!empty($filter['search_rt'])){
-    //         $data = $data->whereHas('rt',function($q) use($filter){
-    //             $q->where('rt_name', $filter['search_rt']);
-    //         });
-    //     }
-
-    //     if(!empty($filter['search_rw'])){
-    //         $data = $data->whereHas('rw',function($q) use($filter){
-    //             $q->where('rw_name', $filter['search_rw']);
-    //         });
-    //     } 
-
-    //     $data->orderBy('id','desc');
-    //     return $data->paginate(10);
-    // }
 
     public function create(Request $request){
         $staf = User::with([])->where('role_user', 'Staff-Kelurahan')->get();
