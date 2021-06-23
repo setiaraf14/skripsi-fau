@@ -34,6 +34,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::namespace('Backend')->group(function(){
     Route::post('/permohonan-ktp', 'PermohonanKtpKkController@storeKtp');
     Route::post('/permohonan-kk', 'PermohonanKtpKkController@storeKk');
+    Route::post('/register-front', 'UserRoleController@registerFrontUser');
 });
 
 Route::group(['prefix' => 'backend', 'namespace'=>'Backend', 'middleware' => 'auth'], function () {
@@ -69,10 +70,6 @@ Route::group(['prefix' => 'backend', 'namespace'=>'Backend', 'middleware' => 'au
         Route::post('/update/{id?}', 'BeritaController@update');
         Route::get('/delete/{id?}', 'BeritaController@delete');
     });
-
-
-    
-    Route::post('/register-front', 'UserRoleController@registerFrontUser');
 
     Route::get('/permohonan-ktp', 'PermohonanKtpKkController@getPermohonanKtp');
     Route::get('/permohonan-ktp/edit/{id?}', 'PermohonanKtpKkController@formEditKtp');

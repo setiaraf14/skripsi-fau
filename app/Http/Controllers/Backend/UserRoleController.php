@@ -302,6 +302,8 @@ class UserRoleController extends Controller
             'password' => 'required',
         ])->validate();
 
+        dd($request->all);
+
         $user = new User();
 
         $user->name = $request->name;
