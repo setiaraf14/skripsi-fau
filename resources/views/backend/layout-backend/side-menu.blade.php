@@ -84,12 +84,11 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+          <li class="nav-item has-treeview menu-open">
+            <a href="{{ url('/backend/rating') }}" class="nav-link @yield('rating') ">
+              <i class="nav-icon fas fa-star-half-alt"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+                Rating
               </p>
             </a>
           </li>

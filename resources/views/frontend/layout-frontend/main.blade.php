@@ -12,6 +12,7 @@
   <!-- Favicons -->
   <link href="{{ asset('frontend/img/favicon.png') }}assets/" rel="icon">
   <link href="{{ asset('frontend/img/apple-touch-icon.png') }}assets/" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -33,6 +34,44 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    /* CSS RATING */
+    .rate {
+        float: left;
+        height: 46px;
+        padding: 0 57px;
+    }
+    .rate:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+    }
+    .rate:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ccc;
+    }
+    .rate:not(:checked) > label:before {
+        content: '★ ';
+    }
+    .rate > input:checked ~ label {
+        color: #ffc700;    
+    }
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;  
+    }
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label,
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+    }
+  </style>
 </head>
 
 <body>
@@ -53,7 +92,7 @@
           <li class="active"><a href="{{ url('/') }}">Home</a></li>
             @if (Auth::check())
                 @if (Auth::user()->role_user == 'Staff-Kelurahan' || Auth::user()->role == 'Ketua-RW' || Auth::user()->role == 'Ketua-RT' )
-                    <li><a class="btn btn-danger" href="{{ url('backend') }}">Dashboard</a></li>        
+                  <li><a class="btn btn-danger text-white mr-1" href="{{ url('backend') }}" style="border-radius: 25px">Dashboard</a></li>
                 @else
                     <li><h4> | Hi {{ Auth::user()->name }} !</h4></li>
                     <li>
@@ -81,10 +120,73 @@
   
 
   <main id="main">
+    @if(session('message'))
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+          <div class="alert alert-{{ session('style') }} mt-2" id="alert-notification">
+            <div class="row">
+                <div class="col-md-11">
+                    <h5>{{ session('message') }}</h5>
+                </div>
+                <div class="col-md-1 text-right">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    @endif
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
         @yield('content')
+
+        <!-- Modal Permohonan KTP-->
+        <div class="modal fade" id="rating" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Rating</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <form action="{{ url('/rating') }}" method="POST" class="needs-validation" novalidate>
+                @csrf
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p>Berikan kami nilai tentang pelayanan ini, agar bisa menjadi lebih baik lagi .. </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                      <div class="rate ml-3 bg-light">
+                        <input type="radio" id="star5" name="rates" value="10" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" name="rates" value="8" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" name="rates" value="6" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" name="rates" value="4" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" name="rates" value="2" />
+                        <label for="star1" title="text">1 star</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary btn-block" style="border-radius: 20px">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
     </section><!-- End About Section -->
 
   </main>

@@ -30,10 +30,11 @@ Route::namespace('Frontend')->group(function(){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 Route::namespace('Backend')->group(function(){
     Route::post('/permohonan-ktp', 'PermohonanKtpKkController@storeKtp');
     Route::post('/permohonan-kk', 'PermohonanKtpKkController@storeKk');
+    Route::post('/rating', 'RatingController@storeRating');
 });
 
 Route::group(['prefix' => 'backend', 'namespace'=>'Backend', 'middleware' => 'auth'], function () {
@@ -91,5 +92,7 @@ Route::group(['prefix' => 'backend', 'namespace'=>'Backend', 'middleware' => 'au
     Route::get('kk/approve-kelurahan/{id?}', 'PermohonanKtpKkController@kkApproveKelurahan');
     Route::get('kk/approve-rw/{id?}', 'PermohonanKtpKkController@kkApproveRw');
     Route::get('kk/approve-rt/{id?}', 'PermohonanKtpKkController@kkApproveRt');
+
+    Route::get('rating', 'RatingController@index');
 
 });

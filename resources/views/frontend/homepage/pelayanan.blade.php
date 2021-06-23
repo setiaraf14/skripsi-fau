@@ -10,18 +10,6 @@
             <img src="{{ asset('frontend/img/spatan_3.png') }}" alt="" width="300">
         </div>
         <div class="row d-flex justify-content-center">
-            @if(session('message'))
-            <div class="alert alert-{{ session('style') }}" id="alert-notification">
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>{{ session('message') }}</h5>
-                    </div>
-                    <div class="col-md-1 text-right">
-                        <span id="close-notification">&times;</span>
-                    </div>
-                </div>
-            </div>
-            @endif
             <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#permohonanKTP">
                 Permohonan KTP
             </button>

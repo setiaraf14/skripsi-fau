@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\Berita;
+use App\Models\Ratings;
 
 class User extends Authenticatable
 {
@@ -50,5 +51,10 @@ class User extends Authenticatable
     public function berita()
     {
         return $this->hasMany(Berita::class, 'user_id', 'id');
+    }
+
+    public function rating()
+    {
+        return $this->hasOne(Ratings::class, 'user_id');
     }
 }
