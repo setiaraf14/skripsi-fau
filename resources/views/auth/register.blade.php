@@ -70,7 +70,7 @@
                         </div>
                     </form> --}}
 
-                    <form method="POST" action="{{ url('backend/register-front') }}">
+                    <form method="POST" action="{{ url('register-front') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -127,6 +127,31 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="telepon"
+                                class="col-md-4 col-form-label text-md-right">{{ __('Telepon') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="telepon" type="number" class="form-control @error('telepon') is-invalid @enderror"
+                                    name="telepon" value="{{ old('telepon') }}" required autocomplete="telepon"
+                                    autofocus>
+
+                                @error('telepon')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="alamat"  class="col-md-4 col-form-label text-md-right">alamat</label>
+                            <div class="col-md-6">
+                                <textarea id="field" class="form-control @error('alamat') is-invalid @enderror" name="alamat"  rows="3" required>{{ old('alamat') }}</textarea>
                             </div>
                         </div>
 

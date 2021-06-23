@@ -136,11 +136,9 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="Alamat"  class="col-md-4 col-form-label text-md-right">Alamat</label>
+                                <label for="alamat"  class="col-md-4 col-form-label text-md-right">alamat</label>
                                 <div class="col-md-6">
-                                    <textarea id="field" class="form-control @error('Alamat') is-invalid @enderror" name="Alamat"  rows="3" required>
-                                        {{ old('Alamat') }}
-                                    </textarea>
+                                    <textarea id="field" class="form-control @error('alamat') is-invalid @enderror" name="alamat"  rows="3" required>{{ old('alamat') }}</textarea>
                                 </div>
                             </div>
 
