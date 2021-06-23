@@ -94,7 +94,10 @@
                 @if (Auth::user()->role_user == 'Staff-Kelurahan' || Auth::user()->role == 'Ketua-RW' || Auth::user()->role == 'Ketua-RT' )
                   <li><a class="btn btn-danger text-white mr-1" href="{{ url('backend') }}" style="border-radius: 25px">Dashboard</a></li>
                 @else
-                    <li><h4> | Hi {{ Auth::user()->name }} !</h4></li>
+                    <li class="mt-1 mr-2"><h4> | Hi {{ Auth::user()->name }} | </h4></li>
+                    @if (Auth::user()->rating == null)
+                      <li><a class="btn btn-primary text-white mr-1" href="{{ url('backend') }}" data-toggle="modal" data-target="#rating" style="border-radius: 25px">Rating</a></li>
+                    @endif
                     <li>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();

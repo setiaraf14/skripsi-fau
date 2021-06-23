@@ -42,57 +42,31 @@
                             <table id="tabel-data" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Total warga</th>
                                         <th>Rating</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @forelse ($permohonanKk as $kk)
+                                    @if (count($ratings) > 0)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $kk->nama }}</td> 
-                                            <td>{{ $kk->ttl }}</td>
-                                            <td>{{ $kk->jenis_kelamin }}</td>
-                                            <td>{{ $kk->status }}</td>
-                                            <td>{{ $kk->no_ktp }}</td>
-                                            <td>{{ $kk->kewarganegaraan }}</td>
-                                            <td>{{ $kk->agama }}</td>
-                                            <td>{{ $kk->pekerjaan }}</td>
-                                            <td><img src="{{ Storage::url($kk->foto_suami) }}" style="width:80px; height:90px" alt=""></td>
-                                            <td><img src="{{ Storage::url($kk->foto_istri) }}" style="width:80px; height:90px" alt=""></td>
-                                            <td>{{ $kk->alamat }}</td>
+                                            <td>{{ count($ratings) }}</td>
                                             <td>
-                                                @if (Auth::user())
-                                                    @if (Auth::user()->role_user == 'Staff-Kelurahan')
-                                                        @if ($kk->approve_kelurahan <> true)
-                                                            <a href="{{ url('backend/kk/approve-kelurahan/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
-                                                        @else
-                                                            <a href="{{ url('backend/kk/approve-kelurahan/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
-                                                        @endif
-                                                    @elseif(Auth::user()->role_user == 'Ketua-RW')
-                                                        @if ($kk->approve_rw <> true)
-                                                            <a href="{{ url('backend/kk/approve-rw/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
-                                                        @else
-                                                            <a href="{{ url('backend/kk/approve-rw/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
-                                                        @endif
-                                                    @else
-                                                        @if ($kk->approve_rt <> true)
-                                                            <a href="{{ url('backend/kk/approve-rt/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
-                                                        @else
-                                                            <a href="{{ url('backend/kk/approve-rt/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
-                                                        @endif
-                                                    @endif
+                                                @if ($nilaiRataRata < 5)
+                                                    <span class="badge badge-danger">Buruk</span>
+                                                @elseif($nilaiRataRata >= 5 && $nilaiRataRata <= 8)
+                                                    <span class="badge badge-danger">Cukup Puas</span>
+                                                @elseif($nilaiRataRata >= 8 && $nilaiRataRata <= 10)
+                                                    <span class="badge badge-danger">Sangat Puas</span>
                                                 @endif
                                             </td>
-                                            <td>
-                                                <div class="d-flex justify-content-start">
-                                                    <a href="{{ url('backend/permohonan-kk/edit/'. $kk->id) }}" class="btn btn-warning mr-1"><i class="fas fa-pen"></i></a>
-                                                    <a href="{{ url('backend/permohonan-kk/delete/'. $kk->id) }}" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
-                                                </div>
-                                            </td>
                                         </tr>
+                                    @else
+                                        <td colspan="14" class="text-center">Belum Ada Rating</td>
+                                    @endif
+                                    {{-- @forelse ($ratings as $rating)
+                                        
                                     @empty
-                                        <td colspan="14" class="text-center">Tidak Ada Data Permohonan Kartu Keluarga</td>
+                                        <td colspan="14" class="text-center">Belum Ada Rating</td>
                                     @endforelse --}}
                                 </tbody>
                             </table>
