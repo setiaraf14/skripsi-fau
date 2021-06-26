@@ -8,6 +8,8 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\Berita;
+use App\Models\PermohonanKk;
+use App\Models\PermohonanKtp;
 use App\Models\Ratings;
 
 class User extends Authenticatable
@@ -56,5 +58,15 @@ class User extends Authenticatable
     public function rating()
     {
         return $this->hasOne(Ratings::class, 'user_id');
+    }
+
+    public function permohonanKtp()
+    {
+        return $this->hasMany(PermohonanKtp::class, 'user_id');
+    }
+
+    public function permohonanKk()
+    {
+        return $this->hasMany(PermohonanKk::class, 'user_id');
     }
 }

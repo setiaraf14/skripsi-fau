@@ -6,6 +6,7 @@ use App\Models\PermohonanKtp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PermohonanKk;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PermohonanKtpKkController extends Controller
@@ -28,7 +29,18 @@ class PermohonanKtpKkController extends Controller
                 'style'     => 'info'    
             ]);
         } else {
-            PermohonanKtp::create($request->all());
+            PermohonanKtp::create([
+                "nama" => $request->nama,
+                "user_id" => Auth::user()->id,
+                "jenis_kelamin" => $request->jenis_kelamin,
+                "no_kk" => $request->no_kk,
+                "agama" => $request->agama,
+                "ttl" => $request->ttl,
+                "status" => $request->status,
+                "kewarganegaraan" => $request->kewarganegaraan,
+                "pekerjaan" => $request->pekerjaan,
+                "alamat" => $request->alamat
+            ]);
             return redirect()->back()->with([
                 'message'   => 'Permohonan KTP Anda Sudah terkirim',
                 'style'     => 'info'    
@@ -149,7 +161,20 @@ class PermohonanKtpKkController extends Controller
         } else {
             $data['foto_suami'] = $request->file('foto_suami')->store('assets/foto', 'public');
             $data['foto_istri'] = $request->file('foto_istri')->store('assets/foto', 'public');
-            PermohonanKk::create($data);
+            PermohonanKk::create([
+                "nama" => $data['nama'],
+                "user_id" => Auth::user()->id,
+                "jenis_kelamin" => $data['jenis_kelamin'],
+                "no_ktp" => $data['no_ktp'],
+                "agama" => $data['agama'],
+                "ttl" => $data['ttl'],
+                "status" => $data['status'],
+                "kewarganegaraan" => $data['kewarganegaraan'],
+                "pekerjaan" => $data['pekerjaan'],
+                "alamat" => $data['alamat'],
+                "foto_suami" => $data['foto_suami'],
+                "foto_istri" => $data['foto_istri']
+            ]);
             return redirect()->back()->with([
                 'message'   => 'Permohonan Kartu Keluarga Anda Sudah terkirim',
                 'style'     => 'info'    
