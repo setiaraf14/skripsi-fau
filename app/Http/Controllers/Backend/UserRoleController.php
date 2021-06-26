@@ -302,17 +302,14 @@ class UserRoleController extends Controller
             'password' => 'required',
         ])->validate();
 
-        dd($request->all);
-
         $user = new User();
-
         $user->name = $request->name;
         $user->rt_id = $request->rt_id;
         $user->rw_id = $request->rw_id;
         $user->role_user = 'warga';
         $user->telepon = $request->telepon;
         $user->alamat = $request->alamat;
-        $user->email = $user->email;
+        $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();        
 

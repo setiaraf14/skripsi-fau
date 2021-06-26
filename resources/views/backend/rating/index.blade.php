@@ -39,35 +39,33 @@
                             </div>
                         @endif
                         <div class="table-responsive">
-                            <table id="tabel-data" class="table table-bordered table-striped">
+                            <table id="tabel-data" class="table table-bordered table-striped text-center">
                                 <thead>
                                     <tr>
                                         <th>Total warga</th>
-                                        <th>Rating</th>
+                                        <th>Nilai Rata - Rata</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if (count($ratings) > 0)
                                         <tr>
-                                            <td>{{ count($ratings) }}</td>
+                                            <td>{{ count($ratings) }} Warga</td>
                                             <td>
                                                 @if ($nilaiRataRata < 5)
-                                                    <span class="badge badge-danger">Buruk</span>
+                                                    <h2><span>&#128529;</span></h2>
+                                                    <h5><span class="badge badge-danger">Tidak Puas</span></h5>
                                                 @elseif($nilaiRataRata >= 5 && $nilaiRataRata <= 8)
-                                                    <span class="badge badge-danger">Cukup Puas</span>
+                                                    <h2><span>&#128522;</span></h2>
+                                                    <h5><span class="badge badge-warning">Cukup Puas</span></h5>
                                                 @elseif($nilaiRataRata >= 8 && $nilaiRataRata <= 10)
-                                                    <span class="badge badge-danger">Sangat Puas</span>
+                                                    <h2><span>&#129321;</span></h2>
+                                                    <h5><span class="badge badge-success">Sangat Puas</span></h5>
                                                 @endif
                                             </td>
                                         </tr>
                                     @else
                                         <td colspan="14" class="text-center">Belum Ada Rating</td>
                                     @endif
-                                    {{-- @forelse ($ratings as $rating)
-                                        
-                                    @empty
-                                        <td colspan="14" class="text-center">Belum Ada Rating</td>
-                                    @endforelse --}}
                                 </tbody>
                             </table>
                         </div>

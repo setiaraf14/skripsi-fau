@@ -12,11 +12,15 @@ class RatingController extends Controller
     public function index()
     {
         $ratings = Ratings::all();
-        $totalNilai = 0;
-        foreach($ratings as $rating){
-            $totalNilai += $rating->rates;
+        if (count($ratings) > 0) {
+            $totalNilai = 0;
+            foreach($ratings as $rating){
+                $totalNilai += $rating->rates;
+            }
+            $nilaiRataRata = $totalNilai / count($ratings);
+        } else {
+            $nilaiRataRata = 0;
         }
-        $nilaiRataRata = $totalNilai / count($ratings);
         return view('backend.rating.index', compact('ratings', 'nilaiRataRata'));
     }
 
