@@ -20,7 +20,7 @@
                                     <img class="d-block w-100" src="{{Storage::url($item->foto_berita)}}" alt="First slide" style="max-height: 450px; display: block; margin: auto;">
                                 </div>
                                 <div class="carousel-caption d-none d-md-block mb-5">
-                                    <a href="" style="color: white;">
+                                    <a href="{{ url('/berita/detail/'.$item->id) }}" style="color: white;">
                                         <h3>{{ $item->judul_berita }}</h3>
                                         <p>{!! Illuminate\Support\Str::of($item->isi_berita)->limit(30) !!}</p>
                                     </a> 
@@ -67,7 +67,7 @@
                                 <img class="card-img-top" src="{{Storage::url($item->foto_berita)}}" alt="Card image cap" style="width:100% ;margin:auto ;display:block ;max-height: 200px;">
                             </div>
                             <div class="card-body">
-                                <a href="" style="color: white;">
+                                <a href="{{ url('/berita/detail/'.$item->id) }}" style="color: white;">
                                     <h5 class="card-title">{!! Illuminate\Support\Str::of($item->judul_berita)->limit(20) !!}</h5>
                                     <span class="mr-2">{{ date('d/m/Y',strtotime($item->tanggal_berita)) }}</span> &bullet;
                                     <p>{!! Illuminate\Support\Str::of($item->summary_berita)->limit(20) !!}</p>

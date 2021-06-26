@@ -40,7 +40,7 @@
 
                                 <div class="form-group col-lg-6">
                                     <label for="user_id">Pilih Reporter</label>
-                                    <select name="user_id" id="user_id" class="form-control">
+                                    <select name="user_id" id="user_id" class="form-control" required>
                                         @foreach($staf as $stafs)
                                             <option value="{{ $stafs->id }}" {{ old('user_id') == $stafs->name ? 'selected' : '' }}>
                                                 {{ $stafs->name }}
@@ -74,7 +74,7 @@
 
                                 <div class="form-group col-lg-6">
                                     <label for="tanggal_berita">Tanggal Pelaksanaan Kegiatan</label>
-                                    <input type="date" name="tanggal_berita" id="tanggal_berita" class="form-control @error('tanggal_berita') is-invalid @enderror" value="{{ old('tanggal_berita') }}">
+                                    <input type="date" name="tanggal_berita" id="tanggal_berita" class="form-control @error('tanggal_berita') is-invalid @enderror" value="{{ old('tanggal_berita') }}" required>
                                     @error('tanggal_berita')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
