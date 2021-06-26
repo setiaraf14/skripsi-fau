@@ -25,6 +25,7 @@ Route::get('/template', function () {
 Route::namespace('Frontend')->group(function(){
     Route::get('/', 'HomepageController@index');
     Route::get('/pelayanan', 'HomepageController@pelayanan');
+    Route::get('/status-permohonan', 'HomepageController@statusPermohonan');
 });
 
 

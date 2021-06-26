@@ -99,9 +99,12 @@
                       <li><a class="btn btn-primary text-white mr-1" href="{{ url('backend') }}" data-toggle="modal" data-target="#rating" style="border-radius: 25px">Rating</a></li>
                     @endif
                     <li>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
+                      <a href="{{ url('status-permohonan') }}" class="btn btn-light mr-1" style="border-radius: 25px">Status Permohonan</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-danger text-white" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
+                            document.getElementById('logout-form').submit();"  style="border-radius: 25px">
                             {{ __('Logout') }}
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
