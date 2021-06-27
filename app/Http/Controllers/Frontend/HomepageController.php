@@ -21,6 +21,19 @@ class HomepageController extends Controller
         return view('frontend.homepage.pelayanan');
     }
 
+    public function detailBerita($id = null)
+    {
+        if($id == null) {
+            return redirect()->back()->with([
+                'message'   => 'Tidak ada berita yang anda pilih',
+                'style'     => 'danger' 
+            ]);
+        }
+
+        $berita = Berita::findOrFail($id);
+        return view('frontend.homepage.detail-berita', compact('berita'));
+    }
+
     public function statusPermohonan()
     {
         $dataKtp = User::findOrFail(Auth::user()->id)->permohonanKtp;

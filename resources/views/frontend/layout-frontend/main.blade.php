@@ -91,7 +91,7 @@
         <ul>
           <li class="active"><a href="{{ url('/') }}">Home</a></li>
             @if (Auth::check())
-                @if (Auth::user()->role_user == 'Staff-Kelurahan' || Auth::user()->role == 'Ketua-RW' || Auth::user()->role == 'Ketua-RT' )
+                @if (Auth::user()->role_user == 'Staff-Kelurahan' || Auth::user()->role_user == 'Ketua-RW' || Auth::user()->role_user == 'Ketua-RT' )
                   <li><a class="btn btn-danger text-white mr-1" href="{{ url('backend') }}" style="border-radius: 25px">Dashboard</a></li>
                 @else
                     <li class="mt-1 mr-2"><h4> | Hi {{ Auth::user()->name }} | </h4></li>

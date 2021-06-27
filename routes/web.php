@@ -24,7 +24,8 @@ Route::get('/template', function () {
 
 Route::namespace('Frontend')->group(function(){
     Route::get('/', 'HomepageController@index');
-    Route::get('/pelayanan', 'HomepageController@pelayanan');
+    Route::get('/pelayanan', 'HomepageController@pelayanan')->middleware('auth');
+    Route::get('/berita/detail/{id}', 'HomepageController@detailBerita');
     Route::get('/status-permohonan', 'HomepageController@statusPermohonan');
 });
 
