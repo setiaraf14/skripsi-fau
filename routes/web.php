@@ -24,11 +24,7 @@ Route::get('/template', function () {
 
 Route::namespace('Frontend')->group(function(){
     Route::get('/', 'HomepageController@index');
-<<<<<<< HEAD
     Route::get('/pelayanan', 'HomepageController@pelayanan')->middleware('auth');
-=======
-    Route::get('/pelayanan', 'HomepageController@pelayanan');
->>>>>>> 39ad9a1ba65e93af1c0414b5a97d1c5b99a5b282
     Route::get('/berita/detail/{id}', 'HomepageController@detailBerita');
     Route::get('/status-permohonan', 'HomepageController@statusPermohonan');
 });
