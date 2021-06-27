@@ -15,7 +15,11 @@ class PermohonanKtpKkController extends Controller
     // ------------------------- Function permohonan KTP ------------------------------
     public function getPermohonanKtp()
     {
-        $permohonanKtp = PermohonanKtp::all();
+        $permohonanKtp = PermohonanKtp::where([
+            'rt_id' => Auth::user()->rt_id,
+            'rw_id' => Auth::user()->rw_id,
+        ])->get();
+
         return view('backend.permohonan-ktp.index', compact('permohonanKtp'));
     }
 
@@ -32,6 +36,8 @@ class PermohonanKtpKkController extends Controller
             PermohonanKtp::create([
                 "nama" => $request->nama,
                 "user_id" => Auth::user()->id,
+                "rt_id" => Auth::user()->rt_id,
+                "rw_id" => Auth::user()->rw_id,
                 "jenis_kelamin" => $request->jenis_kelamin,
                 "no_kk" => $request->no_kk,
                 "agama" => $request->agama,
@@ -136,7 +142,11 @@ class PermohonanKtpKkController extends Controller
     // ------------------------- Function Permohonan KK -------------------------------
     public function getPermohonanKk()
     {
-        $permohonanKk = PermohonanKk::all();
+        $permohonanKk = PermohonanKk::where([
+            'rt_id' => Auth::user()->rt_id,
+            'rw_id' => Auth::user()->rw_id,
+        ])->get();
+
         return view('backend.permohonan-kk.index', compact('permohonanKk'));
     }
 
@@ -164,6 +174,8 @@ class PermohonanKtpKkController extends Controller
             PermohonanKk::create([
                 "nama" => $data['nama'],
                 "user_id" => Auth::user()->id,
+                "rt_id" => Auth::user()->rt_id,
+                "rw_id" => Auth::user()->rw_id,
                 "jenis_kelamin" => $data['jenis_kelamin'],
                 "no_ktp" => $data['no_ktp'],
                 "agama" => $data['agama'],

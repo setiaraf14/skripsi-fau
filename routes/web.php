@@ -40,7 +40,7 @@ Route::namespace('Backend')->group(function(){
     Route::post('/rating', 'RatingController@storeRating');
 });
 
-Route::group(['prefix' => 'backend', 'namespace'=>'Backend', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'backend', 'namespace'=>'Backend', 'middleware' => ['auth', 'user-not-backend']], function () {
     Route::get('/', 'DashboardBackendController@index');
     
     Route::group(['prefix' => 'user-rt'], function () {
