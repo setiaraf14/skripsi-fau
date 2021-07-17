@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Kecamatan @yield('title')</title>
+  <title>Kelurahan Priuk @yield('title')</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
@@ -107,5 +107,6 @@ to get the desired effect
 <script src="{{ asset('admin/plugins/chart.js/Chart.min.js') }}"></script>
 <script src="{{ asset('admin/dist/js/demo.js') }}"></script>
 <script src="{{ asset('admin/dist/js/pages/dashboard3.js') }}"></script>
+@yield('data-table')
 </body>
 </html>

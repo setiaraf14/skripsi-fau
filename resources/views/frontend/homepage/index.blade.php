@@ -46,7 +46,7 @@
                </div>
                <div class="icon-box bg-warning p-1 m-1">
                     <h4><a href="{{ url('/pelayanan') }}" class="text-success">Permohonan KTP/KK</a></h4>
-                    <p><b>Pembutan permohonan KTP/KK jauh lebih muda, dengan mengurangi aktivitas di luar selama pandemi</b></p>
+                    <p><b>Pembuatan permohonan KTP/KK jauh lebih mudah, dengan mengurangi aktivitas di luar selama pandemi</b></p>
                 </div>
            </div>
 

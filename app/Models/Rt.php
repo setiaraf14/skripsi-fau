@@ -15,4 +15,14 @@ class Rt extends Model
     {
         return $this->hasMany('App\User', 'rt_id', 'id');
     }
+
+    public function permohonanktp()
+    {
+        return $this->hasMany('App\Models\PermohonanKtp', 'rt_id', 'id');
+    }
+
+    public function permohonanKk()
+    {
+        return $this->hasMany('App\Models\PermohonanKk', 'rt_id', 'id');
+    }
 }

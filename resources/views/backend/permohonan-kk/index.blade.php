@@ -51,8 +51,8 @@
                                         <th>Kewarganegaraan</th>
                                         <th>Agama</th>
                                         <th>Pekerjaan</th>
-                                        <th>Foto Suami</th>
-                                        <th>Foto Istri</th>
+                                        <th>Foto KTP Suami</th>
+                                        <th>Foto KTP Istri</th>
                                         <th>Alamat</th>
                                         <th>Approve</th>
                                         <th>Aksi</th>
@@ -70,22 +70,71 @@
                                             <td>{{ $kk->kewarganegaraan }}</td>
                                             <td>{{ $kk->agama }}</td>
                                             <td>{{ $kk->pekerjaan }}</td>
-                                            <td><img src="{{ Storage::url($kk->foto_suami) }}" style="width:80px; height:90px" alt=""></td>
-                                            <td><img src="{{ Storage::url($kk->foto_istri) }}" style="width:80px; height:90px" alt=""></td>
+                                            <td><img src="{{ Storage::url($kk->foto_suami) }}" style="width:80px; height:90px" alt="" data-toggle="modal" data-target="#fotoSuami{{ $loop->iteration }}"></td>
+
+                                            <div class="modal fade" id="fotoSuami{{ $loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="fotoSuamiLabel{{ $loop->iteration }}" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="fotoSuamiLabel{{ $loop->iteration }}">Foto Suami</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="{{ Storage::url($kk->foto_suami) }}" style="width:400px;" alt="">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                
+                                            <td><img src="{{ Storage::url($kk->foto_istri) }}" style="width:80px; height:90px" alt="" data-toggle="modal" data-target="#fotoIstri{{ $loop->iteration }}"></td>
+                                            <div class="modal fade" id="fotoIstri{{ $loop->iteration }}" tabindex="-1" role="dialog" aria-labelledby="fotoIstriLabel{{ $loop->iteration }}" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="fotoIstriLabel{{ $loop->iteration }}">Foto Istri</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="{{ Storage::url($kk->foto_istri) }}" style="width:400px;" alt="">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+
                                             <td>{{ $kk->alamat }}</td>
                                             <td>
                                                 @if (Auth::user())
                                                     @if (Auth::user()->role_user == 'Staff-Kelurahan')
-                                                        @if ($kk->approve_kelurahan <> true)
-                                                            <a href="{{ url('backend/kk/approve-kelurahan/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                        @if ($kk->approve_rw == 0)
+                                                            @if ($kk->approve_rt == 0)
+                                                                <p>Waiting Aprove RT</p>
+                                                            @else
+                                                                <p>Waiting Aprove RW</p>
+                                                            @endif
                                                         @else
-                                                            <a href="{{ url('backend/kk/approve-kelurahan/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                            @if ($kk->approve_kelurahan <> true)
+                                                                <a href="{{ url('backend/kk/approve-kelurahan/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                            @else
+                                                                <a href="{{ url('backend/kk/approve-kelurahan/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                            @endif
                                                         @endif
                                                     @elseif(Auth::user()->role_user == 'Ketua-RW')
-                                                        @if ($kk->approve_rw <> true)
-                                                            <a href="{{ url('backend/kk/approve-rw/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                        @if ($kk->approve_rt == 0)
+                                                            <p>Waiting Aprove RT</p>
                                                         @else
-                                                            <a href="{{ url('backend/kk/approve-rw/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                            @if ($kk->approve_rw <> true)
+                                                                <a href="{{ url('backend/kk/approve-rw/'.$kk->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                            @else
+                                                                <a href="{{ url('backend/kk/approve-rw/'.$kk->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                            @endif 
                                                         @endif
                                                     @else
                                                         @if ($kk->approve_rt <> true)

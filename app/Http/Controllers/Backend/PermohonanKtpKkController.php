@@ -15,10 +15,28 @@ class PermohonanKtpKkController extends Controller
     // ------------------------- Function permohonan KTP ------------------------------
     public function getPermohonanKtp()
     {
-        $permohonanKtp = PermohonanKtp::where([
-            'rt_id' => Auth::user()->rt_id,
-            'rw_id' => Auth::user()->rw_id,
-        ])->get();
+        $permohonanKtp = PermohonanKtp::with(['rt', 'rw']);
+        $role = Auth::user()->role_user;
+        if($role == "Staff-Kelurahan") {
+            $permohonanKtp = $permohonanKtp;
+        } else if($role == "Ketua-RW") {
+            $rw = Auth::user()->rw_id;
+            $permohonanKtp = $permohonanKtp->whereHas('rw',function($q) use($rw){
+                $q->where('id', $rw);
+            });
+        } else {
+            $rw = Auth::user()->rw_id;
+            $rt = Auth::user()->rt_id;
+
+            $permohonanKtp = $permohonanKtp->whereHas('rt',function($q) use($rt){
+                $q->where('id', $rt);
+            });
+            $permohonanKtp = $permohonanKtp->whereHas('rw',function($q) use($rw){
+                $q->where('id', $rw);
+            });
+        }
+
+        $permohonanKtp = $permohonanKtp->orderBy('id','desc')->get();
 
         return view('backend.permohonan-ktp.index', compact('permohonanKtp'));
     }
@@ -142,10 +160,33 @@ class PermohonanKtpKkController extends Controller
     // ------------------------- Function Permohonan KK -------------------------------
     public function getPermohonanKk()
     {
-        $permohonanKk = PermohonanKk::where([
-            'rt_id' => Auth::user()->rt_id,
-            'rw_id' => Auth::user()->rw_id,
-        ])->get();
+        // $permohonanKk = PermohonanKk::where([
+        //     'rt_id' => Auth::user()->rt_id,
+        //     'rw_id' => Auth::user()->rw_id,
+        // ])->get();
+
+        $permohonanKk = PermohonanKk::with(['rt', 'rw']);
+        $role = Auth::user()->role_user;
+        if($role == "Staff-Kelurahan") {
+            $permohonanKk = $permohonanKk;
+        } else if($role == "Ketua-RW") {
+            $rw = Auth::user()->rw_id;
+            $permohonanKk = $permohonanKk->whereHas('rw',function($q) use($rw){
+                $q->where('id', $rw);
+            });
+        } else {
+            $rw = Auth::user()->rw_id;
+            $rt = Auth::user()->rt_id;
+
+            $permohonanKk = $permohonanKk->whereHas('rt',function($q) use($rt){
+                $q->where('id', $rt);
+            });
+            $permohonanKk = $permohonanKk->whereHas('rw',function($q) use($rw){
+                $q->where('id', $rw);
+            });
+        }
+
+        $permohonanKk = $permohonanKk->orderBy('id','desc')->get();
 
         return view('backend.permohonan-kk.index', compact('permohonanKk'));
     }

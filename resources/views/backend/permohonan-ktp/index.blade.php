@@ -72,16 +72,28 @@
                                             <td>
                                                 @if (Auth::user())
                                                     @if (Auth::user()->role_user == 'Staff-Kelurahan')
-                                                        @if ($ktp->approve_kelurahan <> true)
-                                                            <a href="{{ url('backend/ktp/approve-kelurahan/'.$ktp->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                        @if ($ktp->approve_rw == 0)
+                                                                @if ($ktp->approve_rt == 0)
+                                                                    <p>Waiting Aprove RT</p>
+                                                                @else
+                                                                    <p>Waiting Aprove RW</p>
+                                                                @endif
                                                         @else
+                                                            @if ($ktp->approve_kelurahan <> true)
+                                                                <a href="{{ url('backend/ktp/approve-kelurahan/'.$ktp->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                            @else
                                                             <a href="{{ url('backend/ktp/approve-kelurahan/'.$ktp->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                            @endif
                                                         @endif
                                                     @elseif(Auth::user()->role_user == 'Ketua-RW')
-                                                        @if ($ktp->approve_rw <> true)
-                                                            <a href="{{ url('backend/ktp/approve-rw/'.$ktp->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                        @if ($ktp->approve_rt == 0)
+                                                            <p>Waiting Aprove RT</p>
                                                         @else
-                                                            <a href="{{ url('backend/ktp/approve-rw/'.$ktp->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                            @if ($ktp->approve_rw <> true)
+                                                            <a href="{{ url('backend/ktp/approve-rw/'.$ktp->id) }}" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Approve</a>
+                                                            @else
+                                                                <a href="{{ url('backend/ktp/approve-rw/'.$ktp->id) }}" class="btn btn-warning btn-sm "><i class="fas fa-exclamation-triangle"></i> Un-Approve</a>
+                                                            @endif
                                                         @endif
                                                     @else
                                                         @if ($ktp->approve_rt <> true)
