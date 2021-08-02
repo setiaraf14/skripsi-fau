@@ -171,7 +171,7 @@ class UserRoleController extends Controller
     {
         if($request->role_user == 'Ketua-RT') {
             $resultCheckRt = $this->checkStatusRt($request->rt_id, $request->rw_id, $request->role_user);
-            if($resultCheckRt) {
+            if($resultCheckRt->id != $request->id) {
                 return redirect('backend/user')->with([
                     'message'   => 'Ketua RT setempat sudah ada',
                     'style'     => 'danger' 
@@ -181,7 +181,7 @@ class UserRoleController extends Controller
 
         if($request->role_user == 'Ketua-RW') {
             $resultCheckRt = $this->checkStatusRw($request->rw_id, $request->role_user);
-            if($resultCheckRt) {
+            if($resultCheckRt->id != $request->id) {
                 return redirect('backend/user')->with([
                     'message'   => 'Ketua RW setempat sudah ada',
                     'style'     => 'danger' 
@@ -202,21 +202,33 @@ class UserRoleController extends Controller
         ])->validate();
 
         if($id){
-            $user = User::find($request->id)->with(['rt', 'rw'])->first();
+            $user = User::where('id', $id)->with(['rt', 'rw'])->first();
             if(!$user){
                 $result['status']   = false;
                 $result['message']  = $user;
                 return $result;
             }
+            if($request->email != $user->email) {
+                $user->email = $request->email;
+            }
             $user->name = $request->name;
             $user->rt_id = $request->rt_id;
             $user->rw_id = $request->rw_id;
-            $user->role_user = $request->role_user;
+            if($user->role_user != $request->role_user)
+            {
+                $user->role_user = $request->role_user;
+            }
             $user->telepon = $request->telepon;
             $user->alamat = $request->alamat;
-            $user->email = $request->email;
+            // $request->email == $user->email ? $email = $user->email :  $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save(); 
+
+            return redirect('backend/user')->with([
+                'message'   => 'Update User success',
+                'style'     => 'success' 
+            ]);
+
         }else{
             $user = new User();
             $user->name = $request->name;

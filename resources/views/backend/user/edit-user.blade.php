@@ -21,7 +21,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                      <h3 class="card-title">Create User</h3>
+                      <h3 class="card-title">Edit User</h3>
                     </div>
                     <!-- /.card-header -->
 
@@ -150,7 +150,7 @@
                                 <label for="email"
                                     class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
     
-                                <div class="col-md-6">
+                                <div class="col-md-6 d-flex justify-content-center">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                         name="email" value="{{ old('email')??$user->email }}" required
                                         autocomplete="email">
@@ -206,13 +206,18 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    @endsection
-    @section('data-table')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     @endsection 
         <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+            
+            function editEmail()
+            {
+                var email = document.getElementById('email');
+                email.setAttribute('disabled');
+            }
+
             function lihatPass(){
                 var password = document.getElementById('password');
                 var atrb = password.getAttribute('type');
